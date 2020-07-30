@@ -42,5 +42,11 @@ namespace SeleniumCore
             Assert.IsTrue(err_message.Displayed);
         }
 
+        [TestCleanup]
+        public void TearDown()
+        {
+            _driver.Quit();
+        }
+
     }
 }

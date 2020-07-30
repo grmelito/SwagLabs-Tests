@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumCore.PageObjects
 {
@@ -45,14 +46,16 @@ namespace SeleniumCore.PageObjects
         }
         public void filterByHighPrice()
         {
-            IAction acaoDropDown = new Actions(_driver)
-                .MoveToElement(dropwdownFilter)
-                .Click()
-                .MoveToElement(optionDropDown)
-                .Click()
-                .Build();
+            var dropDownFilter = new SelectElement(_driver.FindElement(dropdownFilter));
+            dropDownFilter.SelectByValue("hilo");
+            //IAction acaoDropDown = new Actions(_driver)
+            //    .MoveToElement(dropwdownFilter)
+            //    .Click()
+            //    .MoveToElement(optionDropDown)
+            //    .Click()
+            //    .Build();
 
-            acaoDropDown.Perform();
+            //acaoDropDown.Perform();
             //_driver.FindElement(dropdownFilter).SendKeys("Price (high to low)");
             
         }
