@@ -33,5 +33,33 @@ namespace SeleniumCore
 
             Assert.IsTrue(_driver.Url.Contains("checkout-complete.html"));
         }
+        [TestMethod]
+        public void ShouldBeAbleToFilterProductsByLowPrice()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _driver = new FirefoxDriver(outPutDirectory);
+            var InventoryPO = new InventoryPO(_driver);
+            InventoryPO.Visit();
+            InventoryPO.filterByLowPrice();
+
+            Assert.AreEqual("$7.99", _driver.FindElement(By.ClassName("inventory_item_price")).Text);
+        }
+        [TestMethod]
+        public void ShouldBeAbleToFilterProductsByHighPrice()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _driver = new FirefoxDriver(outPutDirectory);
+            var InventoryPO = new InventoryPO(_driver);
+            InventoryPO.Visit();
+            InventoryPO.filterByHighPrice();
+
+            Assert.AreEqual("$49.99", _driver.FindElement(By.ClassName("inventory_item_price")).Text);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            _driver.Quit();
+        }
     }
 }
