@@ -40,10 +40,21 @@ namespace SeleniumCore.PageObjects
             _driver.FindElements(addCartButton)[4].Click();
             _driver.FindElement(checkCartButton).Click();
         }
+        public void filterByNameAtoZ()
+        {
+            var dropDownFilter = new SelectElement(_driver.FindElement(dropdownFilter));
+            dropDownFilter.SelectByValue("az");
+        }
+        public void filterByNameZtoA()
+        {
+            _driver.FindElement(dropdownFilter).SendKeys("Name (Z to A)");
+        }
+
         public void filterByLowPrice()
         {
             _driver.FindElement(dropdownFilter).SendKeys("Price (low to high)");
         }
+
         public void filterByHighPrice()
         {
             var dropDownFilter = new SelectElement(_driver.FindElement(dropdownFilter));

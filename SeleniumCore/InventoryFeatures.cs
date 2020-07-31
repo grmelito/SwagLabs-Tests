@@ -34,6 +34,30 @@ namespace SeleniumCore
             Assert.IsTrue(_driver.Url.Contains("checkout-complete.html"));
         }
         [TestMethod]
+        public void ShouldBeAbleToFilterProductsByNameAtoZ()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _driver = new FirefoxDriver(outPutDirectory);
+            var InventoryPO = new InventoryPO(_driver);
+            InventoryPO.Visit();
+            InventoryPO.filterByNameAtoZ();
+
+            Assert.AreEqual("Sauce Labs Backpack", _driver.FindElement(By.ClassName("inventory_item_name")).Text);
+        }
+        [TestMethod]
+        public void ShouldBeAbleToFilterProductsByNameZtoA()
+        {
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _driver = new FirefoxDriver(outPutDirectory);
+            var InventoryPO = new InventoryPO(_driver);
+            InventoryPO.Visit();
+            InventoryPO.filterByNameZtoA();
+
+            Assert.AreEqual("Test.allTheThings() T-Shirt (Red)", 
+                _driver.FindElement(By.ClassName("inventory_item_name")).Text);
+        }
+
+        [TestMethod]
         public void ShouldBeAbleToFilterProductsByLowPrice()
         {
             var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
