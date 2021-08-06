@@ -2,7 +2,7 @@
 # Objetivo: Ao lançar uma PR para branch de develop, será realizado um trigger que irá esperar 
 # que um reviewer em especifico de ok para que automaticamente essa PR seja recriada e lançada para outra branch.
 
-name: Automate pulll request workflow
+name: Automate pull request workflow to develop
 
 on:
   workflow_dispatch:
@@ -16,12 +16,18 @@ jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+        
       - name: Check out repository code
         uses: actions/checkout@v2
+        
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
           destination_branch: "develop"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_label: "feature, automated pr"
-          pr_title: "[Example] Simple demo"
+          pr_label: "automated pr"
+          pr_title: "Automated PR - ${{ steps.extract_branch.outputs.branch }}"
