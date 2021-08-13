@@ -31,3 +31,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "automated pr"
           pr_title: "Automated PR - ${{ steps.extract_branch.outputs.branch }}"
+
